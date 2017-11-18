@@ -22,6 +22,9 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void testTimer(View view) {
-        Toast.makeText(this, "Starting Timer", Toast.LENGTH_LONG).show();
+        Timer testTimer = new Timer(5);
+        Toast.makeText(this, Double.toString(testTimer.getTime()), Toast.LENGTH_LONG).show();
     }
+
+
 }
