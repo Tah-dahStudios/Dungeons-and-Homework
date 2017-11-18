@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
@@ -26,7 +27,10 @@ public class MainMenu extends AppCompatActivity {
     public void testTimer(View view) {
         this.timer = new Timer(5);
         Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
-    }
+        String timerText = "Yolo Swag";
 
-    
+        // Capture the layout's TextView and set the string as its text
+        TextView textView = findViewById(R.id.timerTextView);
+        textView.setText(timerText);
+    }
 }
