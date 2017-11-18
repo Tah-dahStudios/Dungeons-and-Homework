@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.timtr.dungeonsandhomework.BossMenu">
 
+    <Button
+        android:id="@+id/Boss1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="OpenBossMenu"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="40dp" />
 </android.support.constraint.ConstraintLayout>
