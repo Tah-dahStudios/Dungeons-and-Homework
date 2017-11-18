@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
 
+    private Timer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +24,9 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void testTimer(View view) {
-        Timer testTimer = new Timer(5);
-        Toast.makeText(this, Double.toString(testTimer.getTime()), Toast.LENGTH_LONG).show();
+        this.timer = new Timer(5);
+        Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
     }
 
-
+    
 }
