@@ -24,6 +24,7 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // A rondom comment
     public void testTimer(View view) {
         this.timer = new Timer(5);
         Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
