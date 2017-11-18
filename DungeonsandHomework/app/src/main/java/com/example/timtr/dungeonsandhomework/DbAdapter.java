@@ -18,7 +18,18 @@ public class DbAdapter {
         myHelper = new dbHelper(context);
     }
 
-    public useItem()
+    public int getItemQty(int itemID) {
+        // returns the quantity of the item owned
+        int qty = 0;
+
+        return qty;
+    }
+
+    public int useItem(int itemID){
+        // uses the item specified by itemID, returns the quantity remaining
+
+        return getItemQty(itemID);
+    }
 
 
     static class dbHelper extends SQLiteOpenHelper {
@@ -29,7 +40,7 @@ public class DbAdapter {
         private static final String ITEM_NAME = "Name";    //Column II
         private static final String ITEM_QTY = "Qty";    //Column III
         private static final String CREATE_TABLE = "CREATE TABLE " + ITEM_TABLE +
-                " (" + ItemID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM_NAME + " VARCHAR(255) ," + ITEM_QTY + " INTEGER);";
+                " (" + ItemID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM_NAME + " VARCHAR(255) ," + ITEM_QTY + " INTEGER UNIQUE);";
         private static final String DROP_ITEM_TABLE = "DROP TABLE IF EXISTS " + ITEM_TABLE;
         private Context context;
 
