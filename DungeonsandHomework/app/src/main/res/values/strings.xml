@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dungeons and Homework</string>
+    <string name="testButton">Test Timer</string>
 </resources>
