@@ -18,7 +18,6 @@ public class MainMenu extends AppCompatActivity {
     /** Called when the user touches the button */
     public void OpenBossMenu(View view) {
         Toast.makeText(this, "open boss menu", Toast.LENGTH_LONG).show();
-
         Intent intent = new Intent(this, BossMenu.class);
         startActivity(intent);
     }
