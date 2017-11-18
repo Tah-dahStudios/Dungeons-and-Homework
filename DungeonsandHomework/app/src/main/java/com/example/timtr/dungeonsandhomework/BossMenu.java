@@ -14,7 +14,7 @@ public class BossMenu extends AppCompatActivity {
     }
 
     /** Called when the user touches the button */
-    public void OpenBossMenu(View view) {
+    public void OpenBattleMenu(View view) {
         Intent intent = new Intent(this, BattleMenu.class);
         startActivity(intent);
     }

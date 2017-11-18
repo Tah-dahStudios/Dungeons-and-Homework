@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".BossMenu" />
-        <activity android:name=".BattleMenu"></activity>
+        <activity android:name=".BattleMenu" />
+        <activity android:name=".ShopMenu" />
+        <activity android:name=".StatsMenu"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,18 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user touches the button */
+    public void OpenShopMenu(View view) {
+        Intent intent = new Intent(this, ShopMenu.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user touches the button */
+    public void OpenStatsMenu(View view) {
+        Intent intent = new Intent(this, StatsMenu.class);
+        startActivity(intent);
+    }
+
     // A rondom comment
     public void testTimer(View view) {
         this.timer = new Timer(5);
