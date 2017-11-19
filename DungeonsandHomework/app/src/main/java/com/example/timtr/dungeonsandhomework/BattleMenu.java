@@ -17,8 +17,8 @@ public class BattleMenu extends AppCompatActivity {
     private long timerDuration;
 
     long timeRemaining, elapsedMillisecondTime, StartTime, TimeBuff, UpdateTime = 0;
-    int Seconds, Minutes, MilliSeconds ;
-
+    long minutesRemaining, secondsRemaining, millisecondsRemaining;
+    int seconds, minutes, milliSeconds ;
 
 
     @Override
@@ -54,19 +54,17 @@ public class BattleMenu extends AppCompatActivity {
 
             elapsedMillisecondTime = SystemClock.uptimeMillis() - StartTime;
 
-            UpdateTime = TimeBuff + elapsedMillisecondTime;
+            millisecondsRemaining = timerDuration - elapsedMillisecondTime;
+            secondsRemaining = millisecondsRemaining / 1000;
+            minutesRemaining = secondsRemaining / 60;
 
-            Seconds = (int) (UpdateTime / 1000);
+            milliSeconds = (int) millisecondsRemaining % 1000;
+            seconds = (int) secondsRemaining % 60;
+            minutes = (int) minutesRemaining;
 
-            Minutes = Seconds / 60;
-
-            Seconds = Seconds % 60;
-
-            MilliSeconds = (int) (UpdateTime % 1000);
-
-            timeRemaining = timerDuration - elapsedMillisecondTime;
-
-            timerText.setText(Long.toString(timeRemaining));
+            timerText.setText("" + minutes + ":"
+                    + String.format("%02d", seconds) + ":"
+                    + String.format("%03d", milliSeconds));
 
             timerHandler.postDelayed(this, 0);
         }
