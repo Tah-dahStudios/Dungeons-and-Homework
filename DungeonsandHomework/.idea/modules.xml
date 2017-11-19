@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DungeonsandHomework.iml" filepath="$PROJECT_DIR$/DungeonsandHomework.iml" />
-      <module fileurl="file://C:\Users\Henry W\Hackathon\Dungeons-and-Homework\DungeonsandHomework\DungeonsandHomework.iml" filepath="C:\Users\Henry W\Hackathon\Dungeons-and-Homework\DungeonsandHomework\DungeonsandHomework.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Henry W\Hackathon\Dungeons-and-Homework\DungeonsandHomework\app\app.iml" filepath="C:\Users\Henry W\Hackathon\Dungeons-and-Homework\DungeonsandHomework\app\app.iml" />
     </modules>
   </component>
 </project>

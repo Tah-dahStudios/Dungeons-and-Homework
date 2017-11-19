@@ -4,4 +4,7 @@
     <string name="shopMenuButtonText">Shop Menu</string>
     <string name="statsMenuResourceText">Stats Menu</string>
     <string name="firstBossButtonText">First Boss</string>
+    <string name="fightButtonText">Fight (25)</string>
+    <string name="timerText">Timer</string>
+    <string name="stopButtonText">Stop</string>
 </resources>
