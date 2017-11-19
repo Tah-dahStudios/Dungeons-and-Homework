@@ -15,4 +15,5 @@
     <string name="buyButtonText">Buy</string>
     <string name="cancelButtonText">Cancel</string>
     <string name="buyItemPrompt">Buy how many?</string>
+    <string name="usePotionButtonText">Potion</string>
 </resources>

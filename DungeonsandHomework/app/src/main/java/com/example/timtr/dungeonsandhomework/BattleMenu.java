@@ -18,8 +18,9 @@ public class BattleMenu extends AppCompatActivity {
     private TextView timerText;
 
     private Handler healthRegenHandler;
-    private long idleTime;
+    private long healthRegenInterval;
     private int healthRegen;
+    private long potionDuration;
 
 
     private long timerDuration;
@@ -44,6 +45,8 @@ public class BattleMenu extends AppCompatActivity {
 
         bossHealth = 50;
         healthRegen = 10;
+        healthRegenInterval = 10 * 1000;
+        potionDuration = 5 * 1000;
         bossHealthText = "Health: " + bossHealth;
         bossHealthTextView = findViewById(R.id.bossHealthText);
         bossHealthTextView.setText(bossHealthText);
@@ -80,6 +83,11 @@ public class BattleMenu extends AppCompatActivity {
         if (bossHealth <= 0) {
             Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void usePotion(View view) {
+        healthRegenHandler.removeCallbacks(healthRegenRunnable);
+        healthRegenHandler.postDelayed(healthRegenRunnable, healthRegenInterval + potionDuration);
     }
 
     public Runnable timerRunnable = new Runnable() {
@@ -119,7 +127,7 @@ public class BattleMenu extends AppCompatActivity {
                 bossHealth += healthRegen;
                 bossHealthText = "Health: " + bossHealth;
                 bossHealthTextView.setText(bossHealthText);
-                healthRegenHandler.postDelayed(this, 10 * 1000);
+                healthRegenHandler.postDelayed(this, healthRegenInterval);
             }
     };
 }
