@@ -4,4 +4,8 @@
     <string name="shopMenuButtonText">Shop Menu</string>
     <string name="statsMenuResourceText">Stats Menu</string>
     <string name="firstBossButtonText">First Boss</string>
+    <string name="quitButtonText">Quit</string>
+    <string name="statsButtonText">Stats</string>
+    <string name="shopButtonText">Shop</string>
+    <string name="bossesButtonText">Bosses</string>
 </resources>

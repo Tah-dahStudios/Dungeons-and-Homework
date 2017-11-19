@@ -26,7 +26,7 @@
         android:layout_marginTop="56dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="OpenBossMenu"
-        android:text="Bosses"
+        android:text="@string/bossesButtonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
         android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="OpenShopMenu"
-        android:text="Shop"
+        android:text="@string/shopButtonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bossButton" />
@@ -65,7 +65,7 @@
         android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="OpenStatsMenu"
-        android:text="Stats"
+        android:text="@string/statsButtonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
@@ -79,7 +79,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Quit"
+        android:onClick="quitApp"
+        android:text="@string/quitButtonText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />

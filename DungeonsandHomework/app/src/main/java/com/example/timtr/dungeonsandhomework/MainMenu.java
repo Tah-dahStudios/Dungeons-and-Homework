@@ -36,6 +36,12 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when button is pressed */
+    public void quitApp(View view) {
+        finish();
+        System.exit(0);
+    }
+
     // A rondom comment
     public void testTimer(View view) {
         this.timer = new Timer(5);
