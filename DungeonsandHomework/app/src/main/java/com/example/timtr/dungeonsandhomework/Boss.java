@@ -1,10 +1,12 @@
 package com.example.timtr.dungeonsandhomework;
 
+import java.io.Serializable;
+
 /**
  * Created by timtr on 2017-11-18.
  */
 
-public class Boss {
+public class Boss implements Serializable{
 
     private int health;
     private int gold;

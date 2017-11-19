@@ -269,7 +269,7 @@ public class SqliteManager {
 
 
         private static final String DATABASE_NAME = "gameinfo.db";
-        private static final int DATABASE_VERSION = 4;
+        private static final int DATABASE_VERSION = 3;
 
         private Context context;
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BattleMenu extends AppCompatActivity {
-
+    public static final String BOSS_DETAILS = "Boss_Info_Details";
     private Context context;
 
     private Timer timer;
@@ -43,9 +43,13 @@ public class BattleMenu extends AppCompatActivity {
 
         healthRegenHandler = new Handler();
 
-        bossHealth = 50;
-        healthRegen = 10;
+//        bossHealth = 50;
+//        healthRegen = 10;
         healthRegenInterval = 10 * 1000;
+        Boss boss = (Boss) getIntent().getSerializableExtra(BOSS_DETAILS);
+        bossHealth = boss.getHealth();
+        healthRegen = boss.getHealthRegen();
+
         potionDuration = 5 * 1000;
         bossHealthText = "Health: " + bossHealth;
         bossHealthTextView = findViewById(R.id.bossHealthText);

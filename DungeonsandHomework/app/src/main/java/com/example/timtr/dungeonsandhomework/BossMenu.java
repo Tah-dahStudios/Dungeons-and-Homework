@@ -67,7 +67,8 @@ public class BossMenu extends AppCompatActivity {
         bossListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                OpenBattleMenu(view);
+                Boss boss = (Boss) adapterView.getAdapter().getItem(i);
+                OpenBattleMenu(boss);
             }
         });
     }
@@ -87,8 +88,9 @@ public class BossMenu extends AppCompatActivity {
 
 
     /** Called when the user touches the button */
-    private void OpenBattleMenu(View view) {
+    private void OpenBattleMenu(Boss boss) {
         Intent intent = new Intent(this, BattleMenu.class);
+        intent.putExtra(BattleMenu.BOSS_DETAILS, boss);
         startActivity(intent);
     }
 }
