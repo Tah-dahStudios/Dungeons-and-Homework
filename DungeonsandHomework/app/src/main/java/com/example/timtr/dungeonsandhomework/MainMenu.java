@@ -39,4 +39,9 @@ public class MainMenu extends AppCompatActivity {
         finish();
         System.exit(0);
     }
+
+    public void goToBattle(View view) {
+        Intent intent = new Intent(this, BattleMenu.class);
+        startActivity(intent);
+    }
 }

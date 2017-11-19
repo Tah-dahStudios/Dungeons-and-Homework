@@ -82,5 +82,4 @@ public class BossMenu extends AppCompatActivity {
         Intent intent = new Intent(this, BattleMenu.class);
         startActivity(intent);
     }
-
 }

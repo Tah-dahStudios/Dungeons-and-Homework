@@ -18,6 +18,30 @@ public class Boss {
         this.name = _name;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getHealthRegen() {
+        return healthRegen;
+    }
+
+    public void setHealthRegen(int healthRegen) {
+        this.healthRegen = healthRegen;
+    }
+
     public void takeDamage() {}
 
     public void doDamage() {}
@@ -29,6 +53,4 @@ public class Boss {
     public String getBossName() {
         return name;
     }
-
-
 }

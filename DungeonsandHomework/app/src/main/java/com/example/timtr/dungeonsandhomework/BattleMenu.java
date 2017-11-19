@@ -1,5 +1,6 @@
 package com.example.timtr.dungeonsandhomework;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,16 @@ import android.widget.Toast;
 
 public class BattleMenu extends AppCompatActivity {
 
+    private Context context;
+
     private Timer timer;
     private Handler timerHandler;
     private TextView timerText;
+
+    private Handler healthRegenHandler;
+    private long idleTime;
+    private int healthRegen;
+
 
     private long timerDuration;
 
@@ -20,6 +28,9 @@ public class BattleMenu extends AppCompatActivity {
     long minutesRemaining, secondsRemaining, millisecondsRemaining;
     int seconds, minutes, milliSeconds ;
 
+    private int bossHealth;
+    private String bossHealthText;
+    private TextView bossHealthTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +39,17 @@ public class BattleMenu extends AppCompatActivity {
 
         timerHandler = new Handler();
         timerText = findViewById(R.id.timerTextView);
+
+        healthRegenHandler = new Handler();
+
+        bossHealth = 50;
+        healthRegen = 10;
+        bossHealthText = "Health: " + bossHealth;
+        bossHealthTextView = findViewById(R.id.bossHealthText);
+        bossHealthTextView.setText(bossHealthText);
     }
 
-    public void attack(View view) {
+    public void startTimer(View view) {
         this.timer = new Timer(5);
         Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
         String fightButtonText = "Fighting";
@@ -39,7 +58,7 @@ public class BattleMenu extends AppCompatActivity {
         TextView textView = findViewById(R.id.fightButton);
         textView.setText(fightButtonText);
 
-        this.timerDuration = 25 * 60 * 1000;
+        this.timerDuration = 10 * 1000;
         StartTime = SystemClock.uptimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
     }
@@ -48,8 +67,23 @@ public class BattleMenu extends AppCompatActivity {
         timerHandler.removeCallbacks(timerRunnable);
     }
 
-    public Runnable timerRunnable = new Runnable() {
+    private void dealDamage(int damageDealt) {
+        Toast.makeText(this, "Dealt 25 damage", Toast.LENGTH_LONG).show();
+        bossHealth -= damageDealt;
+        bossHealthText = "Health: " + bossHealth;
+        checkWin();
+        bossHealthTextView.setText(bossHealthText);
+        healthRegenHandler.postDelayed(healthRegenRunnable, 10 * 1000);
+    }
 
+    private void checkWin() {
+        if (bossHealth <= 0) {
+            Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public Runnable timerRunnable = new Runnable() {
+        @Override
         public void run() {
 
             elapsedMillisecondTime = SystemClock.uptimeMillis() - StartTime;
@@ -62,14 +96,30 @@ public class BattleMenu extends AppCompatActivity {
             seconds = (int) secondsRemaining % 60;
             minutes = (int) minutesRemaining;
 
-            timerText.setText("" + minutes + ":"
-                    + String.format("%02d", seconds) + ":"
-                    + String.format("%03d", milliSeconds));
+            String timerString = "" + minutes + ":"
+                    + seconds + ":"
+                    + milliSeconds;
+
+            timerText.setText(timerString);
 
             timerHandler.postDelayed(this, 0);
+
+            if (millisecondsRemaining <= 0) {
+                timerString = "00:00:00";
+                timerText.setText(timerString);
+                timerHandler.removeCallbacks(timerRunnable);
+                dealDamage(25);
+            }
         }
     };
 
-
-
+    public Runnable healthRegenRunnable = new Runnable() {
+            @Override
+            public void run() {
+                bossHealth += healthRegen;
+                bossHealthText = "Health: " + bossHealth;
+                bossHealthTextView.setText(bossHealthText);
+                healthRegenHandler.postDelayed(this, 10 * 1000);
+            }
+    };
 }
