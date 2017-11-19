@@ -17,6 +17,11 @@ public class BattleMenu extends AppCompatActivity {
     private Handler timerHandler;
     private TextView timerText;
 
+    private Handler healthRegenHandler;
+    private long idleTime;
+    private int healthRegen;
+
+
     private long timerDuration;
 
     long timeRemaining, elapsedMillisecondTime, StartTime, TimeBuff, UpdateTime = 0;
@@ -35,7 +40,10 @@ public class BattleMenu extends AppCompatActivity {
         timerHandler = new Handler();
         timerText = findViewById(R.id.timerTextView);
 
+        healthRegenHandler = new Handler();
+
         bossHealth = 50;
+        healthRegen = 10;
         bossHealthText = "Health: " + bossHealth;
         bossHealthTextView = findViewById(R.id.bossHealthText);
         bossHealthTextView.setText(bossHealthText);
@@ -63,11 +71,19 @@ public class BattleMenu extends AppCompatActivity {
         Toast.makeText(this, "Dealt 25 damage", Toast.LENGTH_LONG).show();
         bossHealth -= damageDealt;
         bossHealthText = "Health: " + bossHealth;
+        checkWin();
         bossHealthTextView.setText(bossHealthText);
+        healthRegenHandler.postDelayed(healthRegenRunnable, 10 * 1000);
+    }
+
+    private void checkWin() {
+        if (bossHealth <= 0) {
+            Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
+        }
     }
 
     public Runnable timerRunnable = new Runnable() {
-
+        @Override
         public void run() {
 
             elapsedMillisecondTime = SystemClock.uptimeMillis() - StartTime;
@@ -95,5 +111,15 @@ public class BattleMenu extends AppCompatActivity {
                 dealDamage(25);
             }
         }
+    };
+
+    public Runnable healthRegenRunnable = new Runnable() {
+            @Override
+            public void run() {
+                bossHealth += healthRegen;
+                bossHealthText = "Health: " + bossHealth;
+                bossHealthTextView.setText(bossHealthText);
+                healthRegenHandler.postDelayed(this, 10 * 1000);
+            }
     };
 }
