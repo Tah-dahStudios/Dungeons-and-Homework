@@ -2,8 +2,10 @@ package com.example.timtr.dungeonsandhomework;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -81,6 +83,9 @@ public class BattleMenu extends AppCompatActivity {
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.fightButton);
         textView.setText(fightButtonText);
+        // disable button in fighting state
+        Button fightButton = (Button) findViewById(R.id.fightButton);
+        fightButton.setEnabled(false);
 
         this.timerDuration = SECONDS_WAIT * 1000;
         StartTime = SystemClock.uptimeMillis();
@@ -95,6 +100,10 @@ public class BattleMenu extends AppCompatActivity {
         timerHandler.removeCallbacks(timerRunnable);
         TextView textView = findViewById(R.id.fightButton);
         textView.setText("Fight(25)");
+
+        // re-enable fight button
+        Button fightButton = (Button) findViewById(R.id.fightButton);
+        fightButton.setEnabled(true);
     }
 
     private void dealDamage(int damageDealt) {
@@ -106,6 +115,14 @@ public class BattleMenu extends AppCompatActivity {
         healthRegenHandler.postDelayed(healthRegenRunnable, 10 * 1000);
         TextView textView = findViewById(R.id.fightButton);
         textView.setText("Fight(25)");
+        // re-enable fight button
+        Button fightButton = (Button) findViewById(R.id.fightButton);
+        fightButton.setEnabled(true);
+
+        // vibrate and TODO play noise
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
     }
 
     private void checkWin() {
@@ -182,7 +199,8 @@ public class BattleMenu extends AppCompatActivity {
         exit_button.setVisibility(View.VISIBLE);
 
 
-        // TODO: change coin count
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("HeldItems", 0); // 0 - for private mode
+        HeldItem.addItem(pref, "coin", HeldItem.getCoins(pref) + bossReward);
     }
 
     public void goToMainMenu(View view) {

@@ -1,6 +1,7 @@
 package com.example.timtr.dungeonsandhomework;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,9 @@ public class ShopMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_menu);
         SqliteManager sqliteManager = new SqliteManager(getApplicationContext());
-        int coins = sqliteManager.getItemQty(0); // get number of coins
+//        int coins = sqliteManager.getItemQty(0); // get number of coins
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("HeldItems", 0); // 0 - for private mode
+        int coins = HeldItem.getCoins(pref);
         int numItems = sqliteManager.getNumItems();
         Toast.makeText(this, Integer.toString(numItems), Toast.LENGTH_LONG).show();
 
