@@ -7,4 +7,5 @@
     <string name="fightButtonText">Fight (25)</string>
     <string name="timerText">Timer</string>
     <string name="stopButtonText">Stop</string>
+    <string name="bossHealthText">Health:</string>
 </resources>

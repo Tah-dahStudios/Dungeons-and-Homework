@@ -1,5 +1,6 @@
 package com.example.timtr.dungeonsandhomework;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BattleMenu extends AppCompatActivity {
+
+    private Context context;
 
     private Timer timer;
     private Handler timerHandler;
@@ -20,6 +23,9 @@ public class BattleMenu extends AppCompatActivity {
     long minutesRemaining, secondsRemaining, millisecondsRemaining;
     int seconds, minutes, milliSeconds ;
 
+    private int bossHealth;
+    private String bossHealthText;
+    private TextView bossHealthTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +34,14 @@ public class BattleMenu extends AppCompatActivity {
 
         timerHandler = new Handler();
         timerText = findViewById(R.id.timerTextView);
+
+        bossHealth = 50;
+        bossHealthText = "Health: " + bossHealth;
+        bossHealthTextView = findViewById(R.id.bossHealthText);
+        bossHealthTextView.setText(bossHealthText);
     }
 
-    public void attack(View view) {
+    public void startTimer(View view) {
         this.timer = new Timer(5);
         Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
         String fightButtonText = "Fighting";
@@ -39,13 +50,20 @@ public class BattleMenu extends AppCompatActivity {
         TextView textView = findViewById(R.id.fightButton);
         textView.setText(fightButtonText);
 
-        this.timerDuration = 25 * 60 * 1000;
+        this.timerDuration = 10 * 1000;
         StartTime = SystemClock.uptimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
     }
 
     public void stopTimer(View view) {
         timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    private void dealDamage(int damageDealt) {
+        Toast.makeText(this, "Dealt 25 damage", Toast.LENGTH_LONG).show();
+        bossHealth -= damageDealt;
+        bossHealthText = "Health: " + bossHealth;
+        bossHealthTextView.setText(bossHealthText);
     }
 
     public Runnable timerRunnable = new Runnable() {
@@ -62,14 +80,20 @@ public class BattleMenu extends AppCompatActivity {
             seconds = (int) secondsRemaining % 60;
             minutes = (int) minutesRemaining;
 
-            timerText.setText("" + minutes + ":"
-                    + String.format("%02d", seconds) + ":"
-                    + String.format("%03d", milliSeconds));
+            String timerString = "" + minutes + ":"
+                    + seconds + ":"
+                    + milliSeconds;
+
+            timerText.setText(timerString);
 
             timerHandler.postDelayed(this, 0);
+
+            if (millisecondsRemaining <= 0) {
+                timerString = "00:00:00";
+                timerText.setText(timerString);
+                timerHandler.removeCallbacks(timerRunnable);
+                dealDamage(25);
+            }
         }
     };
-
-
-
 }
