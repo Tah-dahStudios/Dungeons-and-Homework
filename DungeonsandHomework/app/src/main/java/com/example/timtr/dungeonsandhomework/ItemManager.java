@@ -35,7 +35,7 @@ public class ItemManager {
         // returns the quantity of the item owned
         int qty = 0;
         String query = "SELECT " + myHelper.ITEM_QTY +" FROM " + myHelper.ITEM_HELD_TABLE + " WHERE " +
-                myHelper.ITEM_ID + " = " + Integer.toString(itemID) + ";";
+                myHelper.Android_IID + " = " + Integer.toString(itemID) + ";";
         SQLiteDatabase db = this.myHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -66,7 +66,7 @@ public class ItemManager {
             ContentValues values = new ContentValues();
             values.put(myHelper.ITEM_QTY, qty);
             String[] whereArgs= {Integer.toString(itemID)};
-            String whereClause = myHelper.ITEM_ID + " = ?";
+            String whereClause = myHelper.Android_IID + " = ?";
             db.update(myHelper.ITEM_HELD_TABLE, values, whereClause, whereArgs);
 
             db.close();
@@ -93,7 +93,7 @@ public class ItemManager {
         // boss table(_id, name, hp)
 
         // items held table (_id, iid, name, qty)
-        private static final String ITEM_HELD_TABLE = "itemsHeld";   // Table Name
+        private static final String ITEM_HELD_TABLE = "held";   // Table Name
         private static final String ITEM_QTY = "qty";    //Column IV
         private static final String CREATE_HELD_TABLE = "CREATE TABLE IF NOT EXISTS" + ITEM_HELD_TABLE +
                 " (" + Android_IID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + ITEM_ID + " TEXT, " + ITEM_NAME +
