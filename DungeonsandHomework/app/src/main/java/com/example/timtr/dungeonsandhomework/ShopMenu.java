@@ -56,5 +56,10 @@ public class ShopMenu extends AppCompatActivity {
         startActivity(buyItemIntent);
     }
 
+    public void goToMainMenu(View view) {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
+
 
 }

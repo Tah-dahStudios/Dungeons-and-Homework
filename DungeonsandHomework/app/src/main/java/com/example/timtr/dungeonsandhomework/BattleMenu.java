@@ -73,6 +73,16 @@ public class BattleMenu extends AppCompatActivity {
 
         Button exit_button = (Button) findViewById(R.id.return_to_main_button);
         exit_button.setVisibility(View.GONE);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("HeldItems", 0); // 0 - for private mode
+        int potion_qty = HeldItem.getItemQty(pref, "Potion");
+        TextView potion_button_text = (TextView) findViewById(R.id.usePotionButton);
+        potion_button_text.setText(String.format("Use potion(%d left)", potion_qty));
+
+        if (potion_qty == 0){
+            Button potion_button = (Button) findViewById(R.id.usePotionButton);
+            potion_button.setEnabled(false);
+        }
     }
 
     public void startTimer(View view) {
@@ -134,8 +144,24 @@ public class BattleMenu extends AppCompatActivity {
     }
 
     public void usePotion(View view) {
-        healthRegenHandler.removeCallbacks(healthRegenRunnable);
-        healthRegenHandler.postDelayed(healthRegenRunnable, healthRegenInterval + potionDuration);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("HeldItems", 0); // 0 - for private mode
+        int potion_qty = HeldItem.getItemQty(pref, "Potion");
+
+        if (potion_qty > 0) {
+            healthRegenHandler.removeCallbacks(healthRegenRunnable);
+            healthRegenHandler.postDelayed(healthRegenRunnable, healthRegenInterval + potionDuration);
+
+            HeldItem.useItem(pref, "Potion", 1);
+            HeldItem.useItem(pref, "Potion", 1);
+            TextView potion_button_text = (TextView) findViewById(R.id.usePotionButton);
+            potion_button_text.setText(String.format("Use potion(%d left)", potion_qty));
+
+            if (potion_qty == 0){
+                Button potion_button = (Button) findViewById(R.id.usePotionButton);
+                potion_button.setEnabled(false);
+            }
+        }
+
     }
 
     public Runnable timerRunnable = new Runnable() {
