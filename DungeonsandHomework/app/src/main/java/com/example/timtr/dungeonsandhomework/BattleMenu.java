@@ -152,9 +152,10 @@ public class BattleMenu extends AppCompatActivity {
             healthRegenHandler.postDelayed(healthRegenRunnable, healthRegenInterval + potionDuration);
 
             HeldItem.useItem(pref, "Potion", 1);
-            HeldItem.useItem(pref, "Potion", 1);
             TextView potion_button_text = (TextView) findViewById(R.id.usePotionButton);
-            potion_button_text.setText(String.format("Use potion(%d left)", potion_qty));
+            potion_button_text.setText(String.format("Use potion(%d left)", potion_qty - 1));
+
+            Toast.makeText(this, "Used a potion.", Toast.LENGTH_LONG).show();
 
             if (potion_qty == 0){
                 Button potion_button = (Button) findViewById(R.id.usePotionButton);
