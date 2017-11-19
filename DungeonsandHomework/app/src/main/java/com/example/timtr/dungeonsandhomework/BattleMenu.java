@@ -1,13 +1,19 @@
 package com.example.timtr.dungeonsandhomework;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import static java.lang.Math.min;
 
 public class BattleMenu extends AppCompatActivity {
     public static final String BOSS_DETAILS = "Boss_Info_Details";
@@ -21,7 +27,7 @@ public class BattleMenu extends AppCompatActivity {
     private long healthRegenInterval;
     private int healthRegen;
     private long potionDuration;
-
+    private int bossReward;
 
     private long timerDuration;
 
@@ -30,8 +36,11 @@ public class BattleMenu extends AppCompatActivity {
     int seconds, minutes, milliSeconds ;
 
     private int bossHealth;
+    private int maxHealth;
     private String bossHealthText;
     private TextView bossHealthTextView;
+
+    private final int SECONDS_WAIT = 10; //time before damage takes effect
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +54,23 @@ public class BattleMenu extends AppCompatActivity {
 
 //        bossHealth = 50;
 //        healthRegen = 10;
-        healthRegenInterval = 10 * 1000;
+        healthRegenInterval = 20 * 1000;
         Boss boss = (Boss) getIntent().getSerializableExtra(BOSS_DETAILS);
         bossHealth = boss.getHealth();
+        maxHealth = bossHealth;
         healthRegen = boss.getHealthRegen();
+        bossReward = boss.getGold();
 
         potionDuration = 5 * 1000;
         bossHealthText = "Health: " + bossHealth;
         bossHealthTextView = findViewById(R.id.bossHealthText);
         bossHealthTextView.setText(bossHealthText);
+
+        Button fight_button = (Button) findViewById(R.id.fightButton);
+        fight_button.setVisibility(View.VISIBLE);
+
+        Button exit_button = (Button) findViewById(R.id.return_to_main_button);
+        exit_button.setVisibility(View.GONE);
     }
 
     public void startTimer(View view) {
@@ -65,13 +82,19 @@ public class BattleMenu extends AppCompatActivity {
         TextView textView = findViewById(R.id.fightButton);
         textView.setText(fightButtonText);
 
-        this.timerDuration = 10 * 1000;
+        this.timerDuration = SECONDS_WAIT * 1000;
         StartTime = SystemClock.uptimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
+
+        // don't regen during fight status
+        healthRegenHandler.removeCallbacks(healthRegenRunnable);
+        healthRegenHandler.postDelayed(healthRegenRunnable, healthRegenInterval + SECONDS_WAIT*1000);
     }
 
     public void stopTimer(View view) {
         timerHandler.removeCallbacks(timerRunnable);
+        TextView textView = findViewById(R.id.fightButton);
+        textView.setText("Fight(25)");
     }
 
     private void dealDamage(int damageDealt) {
@@ -81,11 +104,15 @@ public class BattleMenu extends AppCompatActivity {
         checkWin();
         bossHealthTextView.setText(bossHealthText);
         healthRegenHandler.postDelayed(healthRegenRunnable, 10 * 1000);
+        TextView textView = findViewById(R.id.fightButton);
+        textView.setText("Fight(25)");
     }
 
     private void checkWin() {
         if (bossHealth <= 0) {
             Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
+
+            finishBattle();
         }
     }
 
@@ -128,10 +155,39 @@ public class BattleMenu extends AppCompatActivity {
     public Runnable healthRegenRunnable = new Runnable() {
             @Override
             public void run() {
-                bossHealth += healthRegen;
+//                bossHealth += healthRegen;
+                bossHealth = min(bossHealth+healthRegen, maxHealth); // prevent over healing
                 bossHealthText = "Health: " + bossHealth;
                 bossHealthTextView.setText(bossHealthText);
                 healthRegenHandler.postDelayed(this, healthRegenInterval);
             }
     };
+
+    public void finishBattle() {
+        // hide unnecessary components
+        Button fight_button = (Button) findViewById(R.id.fightButton);
+        fight_button.setVisibility(View.GONE);
+        Button stop_button = (Button) findViewById(R.id.button5);
+        stop_button.setVisibility(View.GONE);
+        Button potion_button = (Button) findViewById(R.id.usePotionButton);
+        potion_button.setVisibility(View.GONE);
+        TextView hpTextView = (TextView) findViewById(R.id.bossHealthText);
+        hpTextView.setVisibility(View.GONE);
+
+        // reuse timer view for win message
+        TextView timer = (TextView) findViewById(R.id.timerTextView);
+        timer.setText(String.format("You won! You earned %d coins!", bossReward));
+        // set visibility of exit button
+        Button exit_button = (Button) findViewById(R.id.return_to_main_button);
+        exit_button.setVisibility(View.VISIBLE);
+
+
+        // TODO: change coin count
+    }
+
+    public void goToMainMenu(View view) {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
+
 }
