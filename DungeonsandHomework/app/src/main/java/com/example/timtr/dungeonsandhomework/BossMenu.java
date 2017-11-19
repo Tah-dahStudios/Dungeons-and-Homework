@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,8 +53,16 @@ public class BossMenu extends AppCompatActivity {
         ListView bossListView = (ListView) findViewById(R.id.bossListView);
         bossListView.setAdapter(adapter);
 
-        Boss newBoss = new Boss(10, 10, 10, "Boss 1");
-        adapter.add(newBoss);
+        SqliteManager sqliteManager = new SqliteManager(getApplicationContext());
+        int numBosses = sqliteManager.getNumBosses();
+        Toast.makeText(this, Integer.toString(numBosses), Toast.LENGTH_LONG).show();
+
+//        Boss newBoss = new Boss(10, 10, 10, "Boss 1");
+//        adapter.add(newBoss);
+
+        for (int i = 0; i < numBosses; i++){
+            adapter.add(sqliteManager.getBoss(i+1));
+        }
 
         bossListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
