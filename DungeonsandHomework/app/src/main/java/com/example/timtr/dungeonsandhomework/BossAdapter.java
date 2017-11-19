@@ -26,9 +26,13 @@ public class BossAdapter extends ArrayAdapter<Boss> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View bossData = getBossData(convertView, parent);
         TextView bossNameTextView = (TextView) bossData.findViewById(R.id.bossName);
+        TextView bossHpTextView = (TextView) bossData.findViewById(R.id.boss_hp_textview);
+        TextView bossRewardTextView = (TextView) bossData.findViewById(R.id.boss_reward_textview);
 
         Boss boss = getItem(position);
         bossNameTextView.setText(boss.getBossName());
+        bossHpTextView.setText(String.format("HP: %d", boss.getHealth()));
+        bossRewardTextView.setText(String.format("Reward: %d coins", boss.getGold()));
 
         return bossData;
     }
