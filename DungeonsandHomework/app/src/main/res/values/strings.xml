@@ -8,4 +8,7 @@
     <string name="statsButtonText">Stats</string>
     <string name="shopButtonText">Shop</string>
     <string name="bossesButtonText">Bosses</string>
+    <string name="fightButtonText">Fight (25)</string>
+    <string name="timerText">Timer</string>
+    <string name="stopButtonText">Stop</string>
 </resources>

@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
 
-    private Timer timer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +38,5 @@ public class MainMenu extends AppCompatActivity {
     public void quitApp(View view) {
         finish();
         System.exit(0);
-    }
-
-    // A rondom comment
-    public void testTimer(View view) {
-        this.timer = new Timer(5);
-        Toast.makeText(this, Double.toString(this.timer.getTime()), Toast.LENGTH_LONG).show();
-        String timerText = "Yolo Swag";
-
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.timerTextView);
-        textView.setText(timerText);
     }
 }
