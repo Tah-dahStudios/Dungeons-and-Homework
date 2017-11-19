@@ -1,0 +1,1 @@
+insert or replace into items values (1, "pot", "Potion", 10);
