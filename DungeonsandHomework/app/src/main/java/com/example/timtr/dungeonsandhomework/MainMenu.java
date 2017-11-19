@@ -33,4 +33,10 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(this, StatsMenu.class);
         startActivity(intent);
     }
+
+    /** Called when button is pressed */
+    public void quitApp(View view) {
+        finish();
+        System.exit(0);
+    }
 }

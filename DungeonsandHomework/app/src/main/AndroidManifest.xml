@@ -19,7 +19,8 @@
         <activity android:name=".BossMenu" />
         <activity android:name=".BattleMenu" />
         <activity android:name=".ShopMenu" />
-        <activity android:name=".StatsMenu"></activity>
+        <activity android:name=".StatsMenu" />
+        <activity android:name=".Item_Buy_Details"></activity>
     </application>
 
 </manifest>
