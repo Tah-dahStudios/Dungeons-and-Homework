@@ -9,11 +9,13 @@ public class Boss {
     private int health;
     private int gold;
     private int healthRegen;
+    private String name;
 
-    public Boss(int _health, int _gold, int _healthRegen) {
+    public Boss(int _health, int _gold, int _healthRegen, String _name) {
         this.health = _health;
         this.gold = _gold;
         this.healthRegen = _healthRegen;
+        this.name = _name;
     }
 
     public void takeDamage() {}
@@ -22,6 +24,10 @@ public class Boss {
 
     public void regen() {
 
+    }
+
+    public String getBossName() {
+        return name;
     }
 
 
